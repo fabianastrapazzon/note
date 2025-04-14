@@ -6,14 +6,18 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { Request } from 'express';
 
 @Controller('note') //decorator de classe
 export class NoteController {
   @Get('all') //Encontra todos os recados //Decorato método/função
-  findAll() {
-    return 'Essa rota retorna todos os recados';
+  findAll(@Query() pagination: any) {
+    console.log(pagination);
+    const { offset = 1, limit = 0 } = pagination;
+
+    return `Essa rota retorna todos os recados. Limmit = ${limit}, Offset = ${offset}`;
   }
 
   @Get(':id') //Encontra UM recado
